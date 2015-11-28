@@ -1,0 +1,15 @@
+
+DEBUG:root:2015-11-28 10:57:46.907933 - Start...
+DEBUG:requests_oauthlib.oauth1_auth:Signing request <PreparedRequest [GET]> using client <Client nonce=None, signature_method=HMAC-SHA1, realm=None, encoding=utf-8, timestamp=None, resource_owner_secret=****, decoding=utf-8, verifier=None, signature_type=AUTH_HEADER, rsa_key=None, resource_owner_key=3697766475-Ch73qp5kQyj4BZrlfL15LYZdQj3kS5OG0CS8wmz, client_secret=****, callback_uri=None, client_key=xfEnnyRqSsnz46aXUbQAxX8DO>
+DEBUG:requests_oauthlib.oauth1_auth:Including body in call to sign: False
+DEBUG:oauthlib.oauth1.rfc5849:Collected params: [(u'cursor', u'-1'), (u'oauth_nonce', u'20526061766205979281448719066'), (u'oauth_timestamp', u'1448719066'), (u'oauth_consumer_key', u'xfEnnyRqSsnz46aXUbQAxX8DO'), (u'oauth_signature_method', u'HMAC-SHA1'), (u'oauth_version', u'1.0'), (u'oauth_token', u'3697766475-Ch73qp5kQyj4BZrlfL15LYZdQj3kS5OG0CS8wmz')]
+DEBUG:oauthlib.oauth1.rfc5849:Normalized params: cursor=-1&oauth_consumer_key=xfEnnyRqSsnz46aXUbQAxX8DO&oauth_nonce=20526061766205979281448719066&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1448719066&oauth_token=3697766475-Ch73qp5kQyj4BZrlfL15LYZdQj3kS5OG0CS8wmz&oauth_version=1.0
+DEBUG:oauthlib.oauth1.rfc5849:Normalized URI: https://api.twitter.com/1.1/friends/list.json
+DEBUG:oauthlib.oauth1.rfc5849:Base signing string: GET&https%3A%2F%2Fapi.twitter.com%2F1.1%2Ffriends%2Flist.json&cursor%3D-1%26oauth_consumer_key%3DxfEnnyRqSsnz46aXUbQAxX8DO%26oauth_nonce%3D20526061766205979281448719066%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1448719066%26oauth_token%3D3697766475-Ch73qp5kQyj4BZrlfL15LYZdQj3kS5OG0CS8wmz%26oauth_version%3D1.0
+DEBUG:oauthlib.oauth1.rfc5849:Signature: K94dE6SbqRXQISlekZNb/v59tW0=
+DEBUG:oauthlib.oauth1.rfc5849:Encoding URI, headers and body to utf-8.
+DEBUG:requests_oauthlib.oauth1_auth:Updated url: https://api.twitter.com/1.1/friends/list.json?cursor=-1
+DEBUG:requests_oauthlib.oauth1_auth:Updated headers: {'Accept': '*/*', 'Connection': 'keep-alive', 'Accept-Encoding': 'gzip, deflate', 'Authorization': 'OAuth oauth_nonce="20526061766205979281448719066", oauth_timestamp="1448719066", oauth_version="1.0", oauth_signature_method="HMAC-SHA1", oauth_consumer_key="xfEnnyRqSsnz46aXUbQAxX8DO", oauth_token="3697766475-Ch73qp5kQyj4BZrlfL15LYZdQj3kS5OG0CS8wmz", oauth_signature="K94dE6SbqRXQISlekZNb%2Fv59tW0%3D"', 'User-Agent': 'python-requests/2.8.1'}
+DEBUG:requests_oauthlib.oauth1_auth:Updated body: None
+INFO:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): api.twitter.com
+DEBUG:requests.packages.urllib3.connectionpool:"GET /1.1/friends/list.json?cursor=-1 HTTP/1.1" 429 81

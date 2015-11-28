@@ -30,7 +30,8 @@ from datetime import datetime
 from elasticsearch import Elasticsearch
 from json import dumps, loads, JSONEncoder, JSONDecoder
 import pickle
-
+import logging
+logging.basicConfig(filename='indexer.log',level=logging.DEBUG)
 
 class PythonObjectEncoder(JSONEncoder):
     def default(self, obj):
@@ -55,6 +56,7 @@ access_token=cfg['twitter']['access_token']
 access_token_secret=cfg['twitter']['access_token_secret']
 username=cfg['twitter']['username']
 
+logging.debug(str(datetime.now()) + ' - Start...')
 api = twitter.Api(consumer_key, consumer_secret, access_token, access_token_secret)
 
 data = {}
@@ -92,7 +94,9 @@ def normalizeText(text):
 
 def index(type, id, object):
     res = es.index(index="gensory", doc_type=type, id=id, body=object)
-    print 'Indexing Gensory - Type: ' + type + ' ID: ' + str(id)
+    log = 'Indexing Gensory - Type: ' + type + ' ID: ' + str(id)
+    print log
+    logging.debug(log)
 
 def tweetToJSON(tweet):
     if (tweet.retweeted_status!=None):
@@ -144,3 +148,4 @@ for friend in friends:
         index('tweets', tweet.id, tweetToJSON(tweet))
 
 print 'THEEND...'
+logging.debug('END')
