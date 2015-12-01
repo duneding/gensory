@@ -31,7 +31,9 @@ from elasticsearch import Elasticsearch
 from json import dumps, loads, JSONEncoder, JSONDecoder
 import pickle
 import logging
-logging.basicConfig(filename='indexer.log',level=logging.DEBUG)
+import sys
+import time
+logging.basicConfig(filename='indexer.log',level=logging.INFO)
 
 class PythonObjectEncoder(JSONEncoder):
     def default(self, obj):
@@ -56,7 +58,7 @@ access_token=cfg['twitter']['access_token']
 access_token_secret=cfg['twitter']['access_token_secret']
 username=cfg['twitter']['username']
 
-logging.debug(str(datetime.now()) + ' - Start...')
+logging.info(str(datetime.now()) + ' - Start...')
 api = twitter.Api(consumer_key, consumer_secret, access_token, access_token_secret)
 
 data = {}
@@ -141,11 +143,20 @@ def userToJSON(user):
             }
 
 friends = api.GetFriends();
+f = 0
 for friend in friends:
+    f+=1
+    print "Iteration F#"+str(f)
     index('users', friend.id, userToJSON(friend))
-    tweets = api.GetUserTimeline(screen_name=str(friend.screen_name), count=20000, max_id=max_id)
-    for tweet in tweets:
-        index('tweets', tweet.id, tweetToJSON(tweet))
+    '''if (f==157):
+        time.sleep(960)'''
 
-print 'THEEND...'
-logging.debug('END')
+    try:
+        tweets = api.GetUserTimeline(screen_name=str(friend.screen_name), count=20000, max_id=max_id)
+        for tweet in tweets:
+            index('tweets', tweet.id, tweetToJSON(tweet))
+    except:
+        print sys.exc_info()[0]
+
+print 'THEEND... '
+logging.info(str(datetime.now()) + ' - END')
