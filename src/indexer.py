@@ -23,73 +23,36 @@ plt.show()
 '''
 import twitter
 import yaml
-import json
 import unicodedata
-import pickle
+import logging
 from datetime import datetime
 from elasticsearch import Elasticsearch
-from json import dumps, loads, JSONEncoder, JSONDecoder
-import pickle
-import logging
-import sys
-import time
+
 logging.basicConfig(filename='indexer.log',level=logging.INFO)
-
-class PythonObjectEncoder(JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, (list, dict, str, unicode, int, float, bool, type(None))):
-            return JSONEncoder.default(self, obj)
-        return {'_python_object': pickle.dumps(obj)}
-
-def as_python_object(dct):
-    if '_python_object' in dct:
-        return pickle.loads(str(dct['_python_object']))
-    return dct
-
 
 es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 
 with open("config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
-consumer_key=cfg['twitter']['consumer_key']
-consumer_secret=cfg['twitter']['consumer_secret']
-access_token=cfg['twitter']['access_token']
-access_token_secret=cfg['twitter']['access_token_secret']
+ck_alfa=cfg['twitter']['alfa']['consumer_key']
+cs_alfa=cfg['twitter']['alfa']['consumer_secret']
+at_alfa=cfg['twitter']['alfa']['access_token']
+ats_alfa=cfg['twitter']['alfa']['access_token_secret']
+
+ck_beta=cfg['twitter']['beta']['consumer_key']
+cs_beta=cfg['twitter']['beta']['consumer_secret']
+at_beta=cfg['twitter']['beta']['access_token']
+ats_beta=cfg['twitter']['beta']['access_token_secret']
+
 username=cfg['twitter']['username']
 
 logging.info(str(datetime.now()) + ' - Start...')
-api = twitter.Api(consumer_key, consumer_secret, access_token, access_token_secret)
+alfa = twitter.Api(ck_alfa, cs_alfa, at_alfa, ats_alfa)
+beta = twitter.Api(ck_beta, cs_beta, at_beta, ats_beta)
 
 data = {}
-max_id = None
 total = 0
-'''
-while True:
-        statuses = api.GetUserTimeline(screen_name='@subteba', count=20000, max_id=max_id)
-        newCount = ignCount = 0
-        for s in statuses:
-            if s.id in data:
-                ignCount += 1
-            else:
-                data[s.id] = s
-                newCount += 1
-        total += newCount
-
-        if newCount == 0:
-            break
-        max_id = min([s.id for s in statuses]) - 1
-
-
-for k in data:
-    print data.get(k).text
-'''
-'''
-friends = api.GetFriends();
-
-for k in friends:
-    print friends.get(k).name
-    '''
 
 def normalizeText(text):
     unicodedata.normalize('NFKD', text).encode('ascii','ignore')
@@ -142,21 +105,23 @@ def userToJSON(user):
                 'url':user.url
             }
 
-friends = api.GetFriends();
+def getAndIndexTweets(api, screen_name):
+        max_id = None
+        tweets = api.GetUserTimeline(screen_name=str(friend.screen_name), count=20000, max_id=max_id)
+        for tweet in tweets:
+            index('tweets', tweet.id, tweetToJSON(tweet))
+
+friends = alfa.GetFriends();
 f = 0
+LIMIT = 180
 for friend in friends:
     f+=1
     print "Iteration F#"+str(f)
     index('users', friend.id, userToJSON(friend))
-    '''if (f==157):
-        time.sleep(960)'''
 
-    try:
-        tweets = api.GetUserTimeline(screen_name=str(friend.screen_name), count=20000, max_id=max_id)
-        for tweet in tweets:
-            index('tweets', tweet.id, tweetToJSON(tweet))
-    except:
-        print sys.exc_info()[0]
+    if (f<=LIMIT):
+        getAndIndexTweets(alfa, friend.screen_name)
+    else:
+        getAndIndexTweets(beta, friend.screen_name)
 
-print 'THEEND... '
-logging.info(str(datetime.now()) + ' - END')
+print 'THEEND: ' + str(f);
