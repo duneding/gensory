@@ -1,147 +1,62 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''
-Created on 19/12/2014
 
-@author: Martin D
-'''
-'''
-import matplotlib.pyplot as plt
-def add(a,b):
-    return a+b
-
-def addFixedValue(a):
-  y = 6
-  return y +a
-
-print add(1,2)
-print addFixedValue(1)
-print "Hello word!!!"
-plt.plot(1, 2)
-plt.plot(3, 4)
-plt.show()
-'''
-import twitter
-import yaml
+import social
+import engine
 import sys
-import unicodedata
-import logging
+#import logging
+import time
+import threading
 from datetime import datetime
-from elasticsearch import Elasticsearch
 
-logging.basicConfig(filename='indexer.log',level=logging.INFO)
+#logging.basicConfig(filename='indexer.log',level=logging.INFO)
 
-with open("config.yml", 'r') as ymlfile:
-    cfg = yaml.load(ymlfile)
-
-ck_alfa=cfg['twitter']['alfa']['consumer_key']
-cs_alfa=cfg['twitter']['alfa']['consumer_secret']
-at_alfa=cfg['twitter']['alfa']['access_token']
-ats_alfa=cfg['twitter']['alfa']['access_token_secret']
-
-ck_beta=cfg['twitter']['beta']['consumer_key']
-cs_beta=cfg['twitter']['beta']['consumer_secret']
-at_beta=cfg['twitter']['beta']['access_token']
-ats_beta=cfg['twitter']['beta']['access_token_secret']
-
-username=cfg['twitter']['username']
-host_es=cfg['elasticsearch']['host']
-port_es=cfg['elasticsearch']['port']
-
-es = Elasticsearch([{'host': host_es, 'port': port_es}])
-
-logging.info(str(datetime.now()) + ' - Start...')
-alfa = twitter.Api(ck_alfa, cs_alfa, at_alfa, ats_alfa)
-beta = twitter.Api(ck_beta, cs_beta, at_beta, ats_beta)
-
-data = {}
-total = 0
-
-def normalizeText(text):
-    unicodedata.normalize('NFKD', text).encode('ascii','ignore')
-
-def index(type, id, object):
-    res = es.index(index="gensory", doc_type=type, id=id, body=object)
-    log = 'Indexing Gensory - Type: ' + type + ' ID: ' + str(id)
-    print log
-
-def tweetToJSON(tweet):
-    if (tweet.retweeted_status!=None):
-        retweeted_status = {
-                "created_at": tweet.retweeted_status.created_at,
-                "favorite_count": tweet.retweeted_status.favorite_count,
-                "id": tweet.retweeted_status.id,
-                "lang": str(tweet.retweeted_status.lang),
-                "retweet_count": tweet.retweeted_status.retweet_count,
-                "text": (tweet.retweeted_status.text).encode("utf8")
-              }
-    else:
-        retweeted_status = {}
-
-    user = {"id": tweet.user.id, "screen_name": str(tweet.user.screen_name)}
-
-    return {
-              "created_at": tweet.created_at,
-              "id": tweet.id,
-              "lang": str(tweet.lang),
-              "retweet_count": tweet.retweet_count,
-              "retweeted_status": retweeted_status,
-              "text": (tweet.text).encode("utf8"),
-              "user": user
-            }
-
-def userToJSON(user):
-    return {
-                'created_at':user.created_at,
-                'description':user.description,
-                'favourites_count':user.favourites_count,
-                'followers_count':user.followers_count,
-                'friends_count':user.friends_count,
-                'id':user.id,
-                'lang':user.lang,
-                'listed_count':user.listed_count,
-                'location':user.location,
-                'name':user.name,
-                'profile_banner_url':user.profile_banner_url,
-                'profile_image_url':user.profile_image_url,
-                'screen_name':user.screen_name,
-                'statuses_count':user.statuses_count,
-                'url':user.url
-            }
-
-def getAndIndexTweets(api, screen_name):
-        max_id = None
-        tweets = api.GetUserTimeline(screen_name=str(friend.screen_name), count=20000, max_id=max_id)
-        for tweet in tweets:
-            index('tweets', tweet.id, tweetToJSON(tweet))
-
-def GetFriends(api):
-    return api.GetFriends()
-
+LIMIT = 180
+INDEX = 'gensory'
 twitter_error = True
-api = alfa
-while (twitter_error):
+
+alpha = social.api('alpha')
+beta = social.api('beta')
+gamma = social.api('gamma')
+api = alpha
+
+#thread = list()
+def worker(api, friends):
+
+    timestamp_start = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    log_start = threading.currentThread().getName(), 'Launched'
+    print log_start + ':' + timestamp_start
+
+    """funcion que realiza el trabajo en el thread"""
+    for friend in friends:
+        engine.index(INDEX, 'users', friend.id, social.userToJSON(friend))
+
+        tweets = social.GetTweets(api, friend.screen_name)
+
+        for tweet in tweets:
+            engine.index(INDEX, 'tweets', tweet.id, social.tweetToJSON(tweet))
+
+    timestamp_end = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    log_end = threading.currentThread().getName(), 'Finishing'
+    print log_end + ':' + timestamp_end
+    return
+
+while twitter_error:
     try:
-        friends = GetFriends(api)
+        friends = social.GetFriends(api)
         twitter_error = False
-    except twitter.TwitterError:
+    except social.TwitterError:
         twitter_error = True
-        if (api == alfa):
+        if api == alpha:
             api = beta
+        elif api == beta:
+            api = gamma
         else:
-            api = alfa
+            api = alpha
         print "Twitter Error:", sys.exc_info()[1]
 
-f = 0
-LIMIT = 180
-for friend in friends:
-    f+=1
-    print "Iteration F#"+str(f)
-    index('users', friend.id, userToJSON(friend))
-
-    if (f<=LIMIT):
-        getAndIndexTweets(alfa, friend.screen_name)
-    else:
-        getAndIndexTweets(beta, friend.screen_name)
-
-print 'THEEND: ' + str(f);
+half = len(friends)/2
+alpha_thread = threading.Thread(target=worker, name='Alpha', args=(alpha, friends[:half],))
+beta_thread = threading.Thread(target=worker, name='Beta', args=(beta, friends[half:],))
+alpha_thread.start()
+beta_thread.start()
