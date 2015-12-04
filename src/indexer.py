@@ -23,14 +23,13 @@ plt.show()
 '''
 import twitter
 import yaml
+import sys
 import unicodedata
 import logging
 from datetime import datetime
 from elasticsearch import Elasticsearch
 
 logging.basicConfig(filename='indexer.log',level=logging.INFO)
-
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 
 with open("config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
@@ -46,6 +45,10 @@ at_beta=cfg['twitter']['beta']['access_token']
 ats_beta=cfg['twitter']['beta']['access_token_secret']
 
 username=cfg['twitter']['username']
+host_es=cfg['elasticsearch']['host']
+port_es=cfg['elasticsearch']['port']
+
+es = Elasticsearch([{'host': host_es, 'port': port_es}])
 
 logging.info(str(datetime.now()) + ' - Start...')
 alfa = twitter.Api(ck_alfa, cs_alfa, at_alfa, ats_alfa)
@@ -61,7 +64,6 @@ def index(type, id, object):
     res = es.index(index="gensory", doc_type=type, id=id, body=object)
     log = 'Indexing Gensory - Type: ' + type + ' ID: ' + str(id)
     print log
-    logging.debug(log)
 
 def tweetToJSON(tweet):
     if (tweet.retweeted_status!=None):
@@ -76,6 +78,8 @@ def tweetToJSON(tweet):
     else:
         retweeted_status = {}
 
+    user = {"id": tweet.user.id, "screen_name": str(tweet.user.screen_name)}
+
     return {
               "created_at": tweet.created_at,
               "id": tweet.id,
@@ -83,7 +87,7 @@ def tweetToJSON(tweet):
               "retweet_count": tweet.retweet_count,
               "retweeted_status": retweeted_status,
               "text": (tweet.text).encode("utf8"),
-              "user": tweet.user.id
+              "user": user
             }
 
 def userToJSON(user):
@@ -111,7 +115,23 @@ def getAndIndexTweets(api, screen_name):
         for tweet in tweets:
             index('tweets', tweet.id, tweetToJSON(tweet))
 
-friends = alfa.GetFriends();
+def GetFriends(api):
+    return api.GetFriends()
+
+twitter_error = True
+api = alfa
+while (twitter_error):
+    try:
+        friends = GetFriends(api)
+        twitter_error = False
+    except twitter.TwitterError:
+        twitter_error = True
+        if (api == alfa):
+            api = beta
+        else:
+            api = alfa
+        print "Twitter Error:", sys.exc_info()[1]
+
 f = 0
 LIMIT = 180
 for friend in friends:
