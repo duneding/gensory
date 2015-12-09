@@ -10,7 +10,7 @@ import social
 # create instance of elasticsearch
 es = Elasticsearch()
 
-app = 'sentinels'
+app = 'zepelin'
 consumer_key = social.consumerKey(app)
 consumer_secret = social.consumerKey(app)
 access_token = social.accessToken(app)

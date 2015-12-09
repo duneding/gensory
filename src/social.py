@@ -3,7 +3,9 @@ __author__ = 'root'
 # -*- coding: utf-8 -*-
 
 import twitter
-import config
+
+from gensory.src.sandbox import config
+
 
 TwitterError = twitter.TwitterError
 
@@ -70,8 +72,7 @@ def userToJSON(user):
             }
 
 def GetTweets(api, screen_name):
-        max_id = None
-        return api.GetUserTimeline(screen_name=str(screen_name), count=20000, max_id=max_id)
+        return api.GetUserTimeline(screen_name=str(screen_name), count=20000)
 
 def GetFriends(api):
-    return api.GetFriends()
+    return api.GetFriends(skip_status=True)

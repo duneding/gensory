@@ -11,7 +11,6 @@ from datetime import datetime
 
 #logging.basicConfig(filename='indexer.log',level=logging.INFO)
 
-LIMIT = 180
 INDEX = 'gensory'
 twitter_error = True
 
@@ -23,11 +22,10 @@ api = alpha
 #thread = list()
 def worker(api, friends):
 
-    timestamp_start = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-    log_start = threading.currentThread().getName(), 'Launched'
+    timestamp_start = str(datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
+    log_start = str((threading.currentThread().getName(), 'Launched'))
     print log_start + ':' + timestamp_start
 
-    """funcion que realiza el trabajo en el thread"""
     for friend in friends:
         engine.index(INDEX, 'users', friend.id, social.userToJSON(friend))
 
@@ -36,8 +34,8 @@ def worker(api, friends):
         for tweet in tweets:
             engine.index(INDEX, 'tweets', tweet.id, social.tweetToJSON(tweet))
 
-    timestamp_end = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-    log_end = threading.currentThread().getName(), 'Finishing'
+    timestamp_end = str(datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
+    log_end = str((threading.currentThread().getName(), 'Finishing'))
     print log_end + ':' + timestamp_end
     return
 

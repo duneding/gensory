@@ -3,7 +3,9 @@ __author__ = 'root'
 # -*- coding: utf-8 -*-
 
 from elasticsearch import Elasticsearch
-import config
+
+from gensory.src.sandbox import config
+
 
 def host():
     return config.value(['elasticsearch', 'host'])

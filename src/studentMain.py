@@ -13,12 +13,9 @@ Created on 19/12/2014
     visually shows the decision boundary """
 
 
-from prep_terrain_data import makeTerrainData
-from class_vis import prettyPicture, output_image
-from ClassifyNB import classify
-
-import numpy as np
-import pylab as pl
+from gensory.src.sandbox.prep_terrain_data import makeTerrainData
+from gensory.src.sandbox.class_vis import prettyPicture, output_image
+from gensory.src.sandbox.ClassifyNB import classify
 
 
 features_train, labels_train, features_test, labels_test = makeTerrainData()
