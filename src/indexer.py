@@ -24,19 +24,30 @@ def worker(api, friends):
 
     timestamp_start = str(datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
     log_start = str((threading.currentThread().getName(), 'Launched'))
-    print log_start + ':' + timestamp_start
+    start = log_start + ':' + timestamp_start
+    print start
 
     for friend in friends:
         engine.index(INDEX, 'users', friend.id, social.userToJSON(friend))
 
-        tweets = social.GetTweets(api, friend.screen_name)
+        request={"size":1,"sort":[{"id":{"order":"desc"}}], "query": {"match": {
+                 "user.screen_name":friend.screen_name}}}
+
+        docs = engine.search(INDEX, 'tweets', request)
+        if (len(docs["hits"]["hits"]) > 0):
+            since_id = str(docs["hits"]["hits"][0][u'_id'])
+        else:
+            since_id = None
+
+        tweets = social.GetTweets(api, friend.screen_name, since_id)
 
         for tweet in tweets:
             engine.index(INDEX, 'tweets', tweet.id, social.tweetToJSON(tweet))
 
     timestamp_end = str(datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
     log_end = str((threading.currentThread().getName(), 'Finishing'))
-    print log_end + ':' + timestamp_end
+    end = log_end + ':' + timestamp_end
+    print end
     return
 
 while twitter_error:

@@ -4,7 +4,7 @@ __author__ = 'root'
 
 from elasticsearch import Elasticsearch
 
-from gensory.src.sandbox import config
+import config
 
 
 def host():
@@ -19,3 +19,6 @@ def index(index, type, id, object):
     res = es.index(index=index, doc_type=type, id=id, body=object)
     #log = 'Indexing Gensory - Type: ' + type + ' ID: ' + str(id)
     #print log
+
+def search(index, type, request):
+    return es.search(index=index, doc_type=type,body=request)

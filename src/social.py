@@ -3,9 +3,7 @@ __author__ = 'root'
 # -*- coding: utf-8 -*-
 
 import twitter
-
-from gensory.src.sandbox import config
-
+import config
 
 TwitterError = twitter.TwitterError
 
@@ -44,7 +42,7 @@ def tweetToJSON(tweet):
 
     return {
               "created_at": tweet.created_at,
-              "id": tweet.id,
+              "id": str(tweet.id),
               "lang": str(tweet.lang),
               "retweet_count": tweet.retweet_count,
               "retweeted_status": retweeted_status,
@@ -71,8 +69,8 @@ def userToJSON(user):
                 'url':user.url
             }
 
-def GetTweets(api, screen_name):
-        return api.GetUserTimeline(screen_name=str(screen_name), count=20000)
+def GetTweets(api, screen_name, since_id):
+        return api.GetUserTimeline(screen_name=str(screen_name), since_id=since_id, count=20000)
 
 def GetFriends(api):
     return api.GetFriends(skip_status=True)
