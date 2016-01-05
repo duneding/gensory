@@ -4,6 +4,7 @@ __author__ = 'root'
 
 import twitter
 import config
+from textblob import TextBlob
 
 TwitterError = twitter.TwitterError
 
@@ -40,6 +41,14 @@ def tweetToJSON(tweet):
 
     user = {"id": tweet.user.id, "screen_name": str(tweet.user.screen_name)}
 
+    '''
+    tb_es = TextBlob(tweet.text.encode("utf-8"))
+    if tb_es.detect_language() == u'es':
+        text_en = tb_es.translate(to="en")
+        sentiment = text_en.sentiment
+    else:
+        sentiment = None
+    '''
     return {
               "created_at": tweet.created_at,
               "id": str(tweet.id),
@@ -47,7 +56,8 @@ def tweetToJSON(tweet):
               "retweet_count": tweet.retweet_count,
               "retweeted_status": retweeted_status,
               "text": (tweet.text).encode("utf8"),
-              "user": user
+              "user": user#,
+              #"sentiment": sentiment
             }
 
 def userToJSON(user):

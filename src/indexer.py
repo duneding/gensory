@@ -50,6 +50,8 @@ def worker(api, friends):
     print end
     return
 
+# INDEXER
+
 while twitter_error:
     try:
         friends = social.GetFriends(api)
