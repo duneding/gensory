@@ -81,7 +81,7 @@ def userToJSON(user):
             }
 
 def GetTweets(api, screen_name, since_id):
-        return api.GetUserTimeline(screen_name=str(screen_name), since_id=since_id, count=20000)
+    return api.GetUserTimeline(screen_name=str(screen_name), since_id=since_id, count=20000)
 
 def GetFriends(api):
     return api.GetFriends(skip_status=True)

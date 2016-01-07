@@ -41,3 +41,7 @@ print blob.classify()
 blob = TextBlob("No funciona, anda averiguar por que. Quizas hay un accidente", classifier=cl)
 print blob.sentiment
 print blob.classify()
+
+blob = TextBlob(u"El subte funciona ok", classifier=cl)
+print blob.sentiment
+print blob.classify()
