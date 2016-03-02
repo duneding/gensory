@@ -11,7 +11,7 @@ from datetime import datetime
 
 #logging.basicConfig(filename='indexer.log',level=logging.INFO)
 
-INDEX = 'gensory'
+INDEX = 'twitter'
 twitter_error = True
 
 alpha = social.api('alpha')
@@ -28,12 +28,12 @@ def worker(api, friends):
     print start
 
     for friend in friends:
-        engine.index(INDEX, 'users', friend.id, social.userToJSON(friend))
+        engine.index(INDEX, 'user', friend.id, social.userToJSON(friend))
 
         request={"size":1,"sort":[{"id":{"order":"desc"}}], "query": {"match": {
                  "user.screen_name":friend.screen_name}}}
 
-        docs = engine.search(INDEX, 'tweets', request)
+        docs = engine.search(INDEX, 'tweet', request)
         if (len(docs["hits"]["hits"]) > 0):
             since_id = str(docs["hits"]["hits"][0][u'_id'])
         else:
@@ -42,7 +42,7 @@ def worker(api, friends):
         tweets = social.GetTweets(api, friend.screen_name, since_id)
 
         for tweet in tweets:
-            engine.index(INDEX, 'tweets', tweet.id, social.tweetToJSON(tweet))
+            engine.index(INDEX, 'tweet', tweet.id, social.tweetToJSON(tweet))
 
     timestamp_end = str(datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
     log_end = str((threading.currentThread().getName(), 'Finishing'))
