@@ -2,3 +2,7 @@ config.yml
 indexer.log
 indexer.log.bak
 .idea
+build
+dist
+*.egg
+*.egg-info

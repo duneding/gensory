@@ -26,21 +26,21 @@ def username():
 def api(app):
     return twitter.Api(consumerKey(app), consumerSecret(app), accessToken(app), accessTokenSecret(app))
 
-def tweetToJSON(tweet):
-    if (tweet.retweeted_status!=None):
+def tweetToJSON(tweet):        
+    if (tweet.retweeted_status!=None):        
         retweeted_status = {
                 "created_at": tweet.retweeted_status.created_at,
                 "favorite_count": tweet.retweeted_status.favorite_count,
                 "id": tweet.retweeted_status.id,
                 "lang": str(tweet.retweeted_status.lang),
                 "retweet_count": tweet.retweeted_status.retweet_count,
-                "text": (tweet.retweeted_status.text).encode("utf8")
+                "text": tweet.retweeted_status.text#(tweet.retweeted_status.text).encode("utf8")
               }
     else:
         retweeted_status = {}
 
     user = {"id": tweet.user.id, "screen_name": str(tweet.user.screen_name)}
-
+    
     '''
     tb_es = TextBlob(tweet.text.encode("utf-8"))
     if tb_es.detect_language() == u'es':
@@ -55,7 +55,7 @@ def tweetToJSON(tweet):
               "lang": str(tweet.lang),
               "retweet_count": tweet.retweet_count,
               "retweeted_status": retweeted_status,
-              "text": (tweet.text).encode("utf8"),
+              "text": tweet.text,#(tweet.text).encode("utf8"),
               "user": user#,
               #"sentiment": sentiment
             }
@@ -85,3 +85,6 @@ def GetTweets(api, screen_name, since_id):
 
 def GetFriends(api):
     return api.GetFriends(skip_status=True)
+
+def GetUser(api,account):
+    return api.GetUser(screen_name=account)
