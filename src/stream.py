@@ -4,6 +4,7 @@ import sys
 import engine
 import config
 from HTMLParser import HTMLParser
+from monkeylearn import MonkeyLearn
 
 # Authentication details. To  obtain these visit dev.twitter.com
 '''
@@ -14,8 +15,10 @@ zepelin = 'zepelin'
 api = alpha
 '''
 
+#Parametros: api_tw + tag + lang_ml
 api = sys.argv[1]
 tag = sys.argv[2]
+lang = sys.argv[3]
 INDEX = 'twitter'
 
 access_token = config.value(['twitter', api, 'access_token'])
@@ -23,6 +26,15 @@ access_token_secret = config.value(['twitter', api, 'access_token_secret'])
 consumer_key = config.value(['twitter', api, 'consumer_key'])
 consumer_secret = config.value(['twitter', api, 'consumer_secret'])
     
+ext = 'ext'
+dune = 'dune'
+api = ext
+ml_token = config.value(['monkeylearn', api, lang, 'token'])
+ml_module = config.value(['monkeylearn', api, lang, 'module'])
+
+ml = MonkeyLearn(ml_token)
+ml_module_id = ml_module
+
 class StreamHTMLParser(HTMLParser):
     def handle_data(self, data):
         self.data = data
@@ -44,6 +56,7 @@ class StdOutListener(tweepy.StreamListener):
         # Also, we convert UTF-8 to ASCII ignoring all bad characters sent by users
         tweet = '@%s: %s' % (decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore'))
         place = decoded['place']
+        sentiment = ml.classifiers.classify(ml_module_id, [tweet], sandbox=True)
         tweet_indexed = {
                         "favorite_count": decoded['favorite_count'],
                         "retweeted": decoded['retweeted'],                        
@@ -52,11 +65,7 @@ class StdOutListener(tweepy.StreamListener):
                         "favorited": decoded['favorited'],  
                         "lang": decoded['lang'],
                         "tag": tag,
-                        "sentiment": {
-                            "category": '',
-                            "probability": '',
-                            "label": ''
-                        },
+                        "sentiment": sentiment.result,
                         "source": source,
                         "created_at": decoded['created_at'],
                         "text": '%s' % (decoded['text'].encode('ascii', 'ignore')),
