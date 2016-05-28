@@ -56,6 +56,15 @@ class StdOutListener(tweepy.StreamListener):
         # Also, we convert UTF-8 to ASCII ignoring all bad characters sent by users
         tweet = '@%s: %s' % (decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore'))
         place = decoded['place']
+        geo = None
+        if('place' in decoded):
+            if (place is not None and 'bounding_box' in place):
+                bounding_box=decoded['place']['bounding_box']
+                geo = bounding_box['coordinates'][0][0]
+                print geo
+
+        print 
+        user_location = decoded['user']['location']
         sentiment = ml.classifiers.classify(ml_module_id, [tweet], sandbox=True)
         tweet_indexed = {
                         "favorite_count": decoded['favorite_count'],
@@ -66,10 +75,12 @@ class StdOutListener(tweepy.StreamListener):
                         "lang": decoded['lang'],
                         "tag": tag,
                         "sentiment": sentiment.result,
-                        "source": source,
+                        "source": source,                        
                         "created_at": decoded['created_at'],
                         "text": '%s' % (decoded['text'].encode('ascii', 'ignore')),
-                        "place": place
+                        "place": place,
+                        "geo": geo,                        
+                        "user_location": user_location
                     }        
 
         print tweet
