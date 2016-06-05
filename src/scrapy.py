@@ -12,7 +12,7 @@ from datetime import datetime
 
 #logging.basicConfig(filename='indexer.log',level=logging.INFO)
 
-INDEX = 'twitter'
+INDEX = 'scrapy'
 
 accounts = config.value(['twitter','accounts'])
 
@@ -20,7 +20,12 @@ timestamp_start = str(datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:
 start = 'Start: ' + timestamp_start
 print start
 
-api = social.api('alpha')
+if (len(sys.argv)==2):
+    api_param = sys.argv[1]
+else:
+    raise Exception('Error en cantidad de parametros ingresados!!!') 
+
+api = social.api(api_param)
 
 for account in accounts:
     print 'Indexing ' + account
@@ -40,7 +45,7 @@ for account in accounts:
     tweets = social.GetTweets(api, account, since_id)
 
     for tweet in tweets:
-        print 'Tweet> ' + tweet.text
+        print 'Tweet>  ' + tweet.text
         engine.index(INDEX, 'tweet', tweet.id, social.tweetToJSON(tweet))
 
 

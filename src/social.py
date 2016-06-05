@@ -56,6 +56,7 @@ def tweetToJSON(tweet):
               "retweet_count": tweet.retweet_count,
               "retweeted_status": retweeted_status,
               "text": tweet.text,#(tweet.text).encode("utf8"),
+              "text_analyzed": tweet.text,
               "user": user#,
               #"sentiment": sentiment
             }

@@ -1,0 +1,56 @@
+GET /scrapy/_analyze
+{
+  "analyzer" : "es_analyzer",
+  "text" : "premetro interrumpido"
+}
+GET twitter/stream/_search
+GET scrapy/user/_search
+{
+   "query": {
+      "match_all": {}
+   }
+}
+DELETE /scrapy/
+DELETE /futbol/
+DELETE /twitter/stream/_query
+{
+    "query" : { 
+        "match_all" : {}
+    }
+}
+
+GET twitter/stream/_mapping
+
+GET twitter/stream/_search
+{
+    "size": 2000, 
+    "query": {
+        "filtered": {
+           "query": {"match_all": {}},
+           "filter": {"exists": {
+              "field": "place"
+           }}
+        }
+        }
+}
+
+GET /twitter/stream/_search
+{
+  "query": {
+    "geo_shape": {
+      "location": {
+        "relation": "within",
+        "indexed_shape": { 
+          "index": "twitter",
+          "type":  "stream",
+          "id":    "central_amsterdam",
+          "path":  "geo"
+        }
+      }
+    }
+  }
+}
+GET futbol/final/_search
+{
+    "query": {"match_all": {}}
+}
