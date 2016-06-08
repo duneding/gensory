@@ -50,7 +50,8 @@ class StdOutListener(tweepy.StreamListener):
         parser.feed(decoded['source'])
         source = parser.getData()
         # Also, we convert UTF-8 to ASCII ignoring all bad characters sent by users
-        tweet = '@%s: %s' % (decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore'))
+        #tweet = '@%s: %s' % (decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore'))
+        tweet = decoded['text']
         place = decoded['place']
         geo = None
         if('place' in decoded):
@@ -71,7 +72,8 @@ class StdOutListener(tweepy.StreamListener):
                         "sentiment": sentiment.result[0][0],
                         "source": source,                        
                         "created_at": decoded['created_at'],
-                        "text": '%s' % (decoded['text'].encode('ascii', 'ignore')),
+                        "text": tweet,
+                        "text_not_analyzed": tweet, 
                         "place": place,
                         "geo": geo,                        
                         "user_location": user_location

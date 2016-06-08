@@ -1,0 +1,176 @@
+GET scrapy/_mapping
+GET /scrapy/_analyze
+{
+  "analyzer": "spanish",
+  "text": "macri esta internado"
+}
+DELETE scrapy
+PUT scrapy
+{
+    "settings": {
+        "analysis": {
+"filter": {
+        "spanish_stop": {
+          "type":       "stop",
+          "stopwords_path":  "stopwords/spanish" 
+        },
+        "spanish_keywords": {
+          "type":       "keyword_marker",
+          "keywords_path":   "keywords/spanish"
+          
+        },
+        "spanish_stemmer": {
+          "type":       "stemmer",          
+          "language":   "spanish"
+        }
+      },            
+          "analyzer": {              
+            "spanish": { 
+                "type": "custom",
+                "tokenizer" : "standard",
+          "filter": [
+             "standard",
+            "lowercase",            
+            "asciifolding",            
+            "spanish_stop",
+            "spanish_keywords"
+          ]
+            }
+          }           
+    }}, 
+    "mappings": {
+         "tweet": {
+            "properties": {
+               "created_at": {
+                  "type": "date",
+                  "format": "EEE MMM dd HH:mm:ss Z YYYY"
+               },
+               "user": {
+                   "properties": {
+                        "screen_name": {
+                          "type": "string"
+                          , "index": "not_analyzed"
+                        }
+                   } 
+                },
+                "text": {
+                    "type": "string",
+                    "analyzer": "spanish"
+                }
+               }            
+            }
+        },
+        "user": {
+            "properties": {
+               "user": {
+                   "properties": {
+                        "screen_name": {
+                          "type": "string",
+                          "index": "not_analyzed"
+                   } 
+               }               
+            }
+         }         
+        }         
+    }      
+}
+DELETE twitter
+DELETE tasd
+PUT tasd
+PUT twitter
+PUT tasd
+{
+    "settings": {
+        "analysis": {
+            "filter": {
+                "spanish_stop": {
+                    "type": "stop",
+                    "stopwords_path": "stopwords/spanish" 
+                },
+                "spanish_keywords": {
+                    "type": "keyword_marker",
+                    "keywords_path": "keywords/spanish"
+                },
+                "spanish_stemmer": {
+                    "type": "stemmer",          
+                    "language": "spanish"
+                },
+                                "tokenFilterLength": {
+                    "type": "length",
+                    "min": 4,
+                    "max": 12
+                }
+            },            
+        "analyzer": {   
+            "spanish": { 
+                "type": "custom",
+                "tokenizer" : "standard",
+                 "filter": [
+                        "standard",
+                        "lowercase",            
+                        "asciifolding",
+                        "tokenFilterLength",
+                        "spanish_stop",
+                        "spanish_keywords"
+                 ]
+            }         
+        }           
+    }},     
+      "mappings": {
+         "stream": {
+            "properties": {
+               "created_at": {
+                  "type": "date",
+                  "format": "EEE MMM dd HH:mm:ss Z YYYY"
+               },
+               "source": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "tag": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+                "geo": {
+                    "type": "geo_point"
+                },
+                "text": {
+                    "type": "string",
+                    "analyzer": "spanish"
+                },
+                "text_not_analyzed": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "sentiment": {
+                    "properties": {
+                        "label":{
+                          "type": "string",
+                          "index": "not_analyzed"                            
+                        }
+                    }
+                },
+               "place": {
+                   "properties": {
+                       "full_name": {
+                          "type": "string",
+                          "index": "not_analyzed"
+                       },
+                       "country": {
+                          "type": "string",
+                          "index": "not_analyzed"
+                       },
+                       "country_code": {
+                          "type": "string",
+                          "index": "not_analyzed"
+                       },
+                       "name": {
+                          "type": "string",
+                          "index": "not_analyzed"
+                       }
+                   }
+               }
+            }
+         }         
+      }
+}
