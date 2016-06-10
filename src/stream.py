@@ -8,6 +8,8 @@ from monkeylearn import MonkeyLearn
 
 
 #Parametros: api_tw + tag + lang_ml + index + type
+#Ej: python src/stream.py alpha obama en twitter stream
+
 if (len(sys.argv)==6):
     api = sys.argv[1]
     tag = sys.argv[2]
