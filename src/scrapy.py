@@ -10,6 +10,9 @@ import time
 import threading
 from datetime import datetime
 
+#Parametros: api_tw
+#Ej: python src/scrapy.py alpha
+
 #logging.basicConfig(filename='indexer.log',level=logging.INFO)
 
 INDEX = 'scrapy'
@@ -23,7 +26,7 @@ print start
 if (len(sys.argv)==2):
     api_param = sys.argv[1]
 else:
-    raise Exception('Error en cantidad de parametros ingresados!!!') 
+    raise Exception('Error en cantidad de parametros ingresados!!!')
 
 api = social.api(api_param)
 
@@ -47,6 +50,3 @@ for account in accounts:
     for tweet in tweets:
         print 'Tweet>  ' + tweet.text
         engine.index(INDEX, 'tweet', tweet.id, social.tweetToJSON(tweet))
-
-
-
