@@ -82,7 +82,7 @@
       "title": "Dashboard Streaming: #NoTeVayasLio",
       "hits": 0,
       "description": "",
-      "panelsJSON": "[{\"col\":1,\"id\":\"Descripción\",\"panelIndex\":8,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"id\":\"america-Geo\",\"type\":\"visualization\",\"panelIndex\":9,\"size_x\":6,\"size_y\":5,\"col\":1,\"row\":3},{\"id\":\"america-Sources\",\"type\":\"visualization\",\"panelIndex\":10,\"size_x\":6,\"size_y\":3,\"col\":7,\"row\":1},{\"id\":\"america-Terms\",\"type\":\"visualization\",\"panelIndex\":11,\"size_x\":6,\"size_y\":4,\"col\":7,\"row\":4},{\"id\":\"america-count\",\"type\":\"visualization\",\"panelIndex\":12,\"size_x\":3,\"size_y\":2,\"col\":4,\"row\":1}]",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Descripción\",\"panelIndex\":8,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"america-Geo\",\"panelIndex\":9,\"row\":3,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"col\":7,\"id\":\"america-Sources\",\"panelIndex\":10,\"row\":1,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"america-Terms\",\"panelIndex\":11,\"row\":4,\"size_x\":6,\"size_y\":4,\"type\":\"visualization\"},{\"col\":4,\"id\":\"america-count\",\"panelIndex\":12,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"}]",
       "optionsJSON": "{\"darkTheme\":true}",
       "uiStateJSON": "{}",
       "version": 1,
@@ -501,48 +501,6 @@
     }
   },
   {
-    "_id": "Descripción-Open-Data",
-    "_type": "visualization",
-    "_source": {
-      "title": "Descripción - Open Data",
-      "visState": "{\"title\":\"Descripción - Open Data\",\"type\":\"markdown\",\"params\":{\"markdown\":\"### Tecnologías Aplicadas a Soluciones de Datos\\nOpen Data\\nEjecución Presupuestaria de la Administración Pública Nacional\\nMinisterio de Hacienda.\\n**Data is The New Bacon!!!**\"},\"aggs\":[],\"listeners\":{}}",
-      "uiStateJSON": "{}",
-      "description": "",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
-      }
-    }
-  },
-  {
-    "_id": "america-count",
-    "_type": "visualization",
-    "_source": {
-      "title": "america - count",
-      "visState": "{\"title\":\"New Visualization\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{}}",
-      "uiStateJSON": "{}",
-      "description": "",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"america\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
-      }
-    }
-  },
-  {
-    "_id": "america-Sources",
-    "_type": "visualization",
-    "_source": {
-      "title": "america - Sources",
-      "visState": "{\"title\":\"america - Sources\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"tag\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"source\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
-      "uiStateJSON": "{}",
-      "description": "",
-      "version": 1,
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"america\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
-      }
-    }
-  },
-  {
     "_id": "america-Geo",
     "_type": "visualization",
     "_source": {
@@ -567,6 +525,48 @@
       "version": 1,
       "kibanaSavedObjectMeta": {
         "searchSourceJSON": "{\"index\":\"america\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[{\"meta\":{\"index\":\"america\",\"key\":\"text\",\"value\":\"notevayaslio\",\"disabled\":false,\"negate\":false,\"alias\":null},\"query\":{\"match\":{\"text\":{\"query\":\"notevayaslio\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"index\":\"america\",\"key\":\"text\",\"value\":\"t.co\",\"disabled\":false,\"negate\":true,\"alias\":null},\"query\":{\"match\":{\"text\":{\"query\":\"t.co\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  },
+  {
+    "_id": "america-Sources",
+    "_type": "visualization",
+    "_source": {
+      "title": "america - Sources",
+      "visState": "{\"title\":\"america - Sources\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"tag\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"source\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"america\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Descripción-Open-Data",
+    "_type": "visualization",
+    "_source": {
+      "title": "Descripción - Open Data",
+      "visState": "{\"title\":\"Descripción - Open Data\",\"type\":\"markdown\",\"params\":{\"markdown\":\"### Tecnologías Aplicadas a Soluciones de Datos\\nOpen Data\\nEjecución Presupuestaria de la Administración Pública Nacional\\nMinisterio de Hacienda.\\n**Data is The New Bacon!!!**\"},\"aggs\":[],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "america-count",
+    "_type": "visualization",
+    "_source": {
+      "title": "america - count",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"america\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
     }
   }

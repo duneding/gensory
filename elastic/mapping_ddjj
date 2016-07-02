@@ -1,0 +1,52 @@
+PUT ddjj
+{
+  "mappings": {
+     "2014": {
+        "properties": {
+            "created_at": {
+               "type": "date",
+               "format": "EEE MMM dd HH:mm:ss Z YYYY"
+            },
+           "actividad_principal_ambito": {
+              "type": "string"
+           },
+           "apellido_nombre": {
+              "type": "string",
+              "index": "not_analyzed"
+           },
+           "cargo": {
+              "type": "string",
+              "index": "not_analyzed"
+           },
+           "desde": {
+              "type": "string",
+              "index": "not_analyzed"
+           },
+           "fecha_inicio_licencia": {
+              "type": "string",
+              "index": "not_analyzed"
+           },
+           "goza_de_licencia": {
+              "type": "string",
+              "index": "not_analyzed"
+           },
+           "horas_dedicacion": {
+              "type": "string",
+              "index": "not_analyzed"
+           },
+           "organismo": {
+              "type": "string",
+              "index": "not_analyzed"
+           },
+           "proveedor_contratista": {
+              "type": "string",
+              "index": "not_analyzed"
+           },
+           "sector": {
+              "type": "string",
+              "index": "not_analyzed"
+           }
+        }
+     }
+  }
+}
