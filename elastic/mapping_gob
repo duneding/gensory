@@ -1,0 +1,117 @@
+PUT gob
+{
+    "mappings": {
+         "presupuesto": {
+            "properties": {
+               "created_at": {
+                  "type": "date",
+                  "format": "EEE MMM dd HH:mm:ss Z YYYY"
+               },
+               "caracter": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "clasificador_economico_2_digitos_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "clasificador_economico_2_digitos_id": {
+                  "type": "long"
+               },
+               "clasificador_economico_3_digitos_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "clasificador_economico_3_digitos_id": {
+                  "type": "long"
+               },
+               "ejercicio_actual": {
+                  "type": "long"
+               },
+               "entidad_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "entidad_id": {
+                  "type": "long"
+               },
+               "finalidad_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "finalidad_id": {
+                  "type": "long"
+               },
+               "fuente_financiamiento_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "funcion_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "funcion_id": {
+                  "type": "long"
+               },
+               "inciso_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "inciso_id": {
+                  "type": "long"
+               },
+               "jurisdiccion_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "jurisdiccion_id": {
+                  "type": "long"
+               },
+               "leyenda_fecha_actualizacion": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "monto_comprometido": {
+                  "type": "long"
+               },
+               "monto_devengado": {
+                  "type": "long"
+               },
+               "monto_pagado": {
+                  "type": "long"
+               },
+               "monto_presupuestado": {
+                  "type": "long"
+               },
+               "principal_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "principal_id": {
+                  "type": "long"
+               },
+               "programa_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "programa_id": {
+                  "type": "long"
+               },
+               "servicio_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "servicio_id": {
+                  "type": "long"
+               },
+               "subjurisdiccion_desc": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "subjurisdiccion_id": {
+                  "type": "long"
+               }
+              }
+          }
+        }
+}

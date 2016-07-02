@@ -17,7 +17,7 @@ if (len(sys.argv)==6):
     index_es = sys.argv[4]
     type_es = sys.argv[5]
 else:
-    raise Exception('Error en cantidad de parametros ingresados!!!') 
+    raise Exception('Error en cantidad de parametros ingresados!!!: api+tag+lang+index+type') 
 
 access_token = config.value(['twitter', api, 'access_token'])
 access_token_secret = config.value(['twitter', api, 'access_token_secret'])

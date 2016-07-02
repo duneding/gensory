@@ -7,3 +7,4 @@ dist
 *.egg
 *.egg-info
 sandbox.py
+.DS_Store
