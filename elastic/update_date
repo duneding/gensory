@@ -1,4 +1,4 @@
-POST /gob/presupuesto/_update_by_query?conflicts=proceed
+POST /ddjj/2014/_update_by_query?conflicts=proceed
 {
     "script": {
         "inline": "ctx._source.created_at = \"Fri Jul 1 16:03:32 +0000 2016\";"

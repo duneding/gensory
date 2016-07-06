@@ -1,43 +1,5 @@
 [
   {
-    "_id": "Dashboard-Streaming:-Presidentes",
-    "_type": "dashboard",
-    "_source": {
-      "title": "Dashboard Streaming: Presidentes",
-      "hits": 0,
-      "description": "",
-      "panelsJSON": "[{\"col\":4,\"id\":\"Slices\",\"panelIndex\":2,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Sentiment\",\"panelIndex\":3,\"row\":3,\"size_x\":5,\"size_y\":3,\"type\":\"visualization\"},{\"col\":6,\"id\":\"Sources\",\"panelIndex\":4,\"row\":3,\"size_x\":3,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"Total-Tweets\",\"panelIndex\":5,\"row\":1,\"size_x\":2,\"size_y\":2,\"type\":\"visualization\"},{\"col\":9,\"id\":\"Geo\",\"panelIndex\":7,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Descripción\",\"panelIndex\":8,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"stream-Terms\",\"panelIndex\":9,\"row\":6,\"size_x\":12,\"size_y\":5,\"type\":\"visualization\"}]",
-      "optionsJSON": "{\"darkTheme\":true}",
-      "uiStateJSON": "{\"P-9\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}},\"vis\":{\"legendOpen\":false}}}",
-      "version": 1,
-      "timeRestore": true,
-      "timeTo": "now/d",
-      "timeFrom": "now/d",
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
-      }
-    }
-  },
-  {
-    "_id": "Dashboard-Streaming:-TASD",
-    "_type": "dashboard",
-    "_source": {
-      "title": "Dashboard Streaming: TASD",
-      "hits": 0,
-      "description": "",
-      "panelsJSON": "[{\"id\":\"Descripción\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":3,\"size_y\":2,\"col\":1,\"row\":1}]",
-      "optionsJSON": "{\"darkTheme\":true}",
-      "uiStateJSON": "{}",
-      "version": 1,
-      "timeRestore": true,
-      "timeTo": "now/d",
-      "timeFrom": "now/d",
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
-      }
-    }
-  },
-  {
     "_id": "Dashboard-Scrapy",
     "_type": "dashboard",
     "_source": {
@@ -91,6 +53,82 @@
       "timeFrom": "now/y",
       "kibanaSavedObjectMeta": {
         "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Dashboard-Scrapy-(cuentas-de-TW)",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Dashboard Scrapy (cuentas de TW)",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Descripción\",\"panelIndex\":1,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"scrapy-cant-by-user\",\"panelIndex\":2,\"row\":10,\"size_x\":12,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"scrapy-date-histogram\",\"panelIndex\":3,\"row\":1,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"col\":4,\"id\":\"scrapy-metric\",\"panelIndex\":4,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"scrapy-significant\",\"panelIndex\":5,\"row\":3,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"scrapy-date-histogram-lines\",\"panelIndex\":6,\"row\":6,\"size_x\":12,\"size_y\":4,\"type\":\"visualization\"},{\"col\":9,\"id\":\"scrapy-rt-count\",\"panelIndex\":7,\"row\":13,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"scrapy-rt-fav\",\"panelIndex\":8,\"row\":13,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":5,\"id\":\"scrapy-rt-status-count\",\"panelIndex\":9,\"row\":13,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{\"P-2\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}},\"vis\":{\"legendOpen\":false}},\"P-3\":{\"vis\":{\"legendOpen\":false}},\"P-5\":{\"vis\":{\"legendOpen\":false}},\"P-6\":{\"vis\":{\"legendOpen\":false}}}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now/y",
+      "timeFrom": "now/y",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Dashboard-Streaming:-Presidentes",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Dashboard Streaming: Presidentes",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":4,\"id\":\"Slices\",\"panelIndex\":2,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Sentiment\",\"panelIndex\":3,\"row\":3,\"size_x\":5,\"size_y\":3,\"type\":\"visualization\"},{\"col\":6,\"id\":\"Sources\",\"panelIndex\":4,\"row\":3,\"size_x\":3,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"Total-Tweets\",\"panelIndex\":5,\"row\":1,\"size_x\":2,\"size_y\":2,\"type\":\"visualization\"},{\"col\":9,\"id\":\"Geo\",\"panelIndex\":7,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Descripción\",\"panelIndex\":8,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"stream-Terms\",\"panelIndex\":9,\"row\":6,\"size_x\":12,\"size_y\":5,\"type\":\"visualization\"}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{\"P-9\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}},\"vis\":{\"legendOpen\":false}}}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now/y",
+      "timeFrom": "now/y",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Dashboard-Streaming:-TASD",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Dashboard Streaming: TASD",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"id\":\"Descripción\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":3,\"size_y\":2,\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now/y",
+      "timeFrom": "now/y",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Dashboard-Declaraciones-Juradas-2014",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Dashboard Declaraciones Juradas 2014",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"id\":\"ddjj-bienes-heredados\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":6,\"size_y\":3,\"col\":1,\"row\":1},{\"id\":\"ddjj-gastos-personales\",\"type\":\"visualization\",\"panelIndex\":2,\"size_x\":6,\"size_y\":3,\"col\":1,\"row\":4},{\"id\":\"ddjj-total-bienes\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":6,\"size_y\":3,\"col\":7,\"row\":1},{\"id\":\"ddjj-total-ingresos-neto\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":6,\"size_y\":3,\"col\":7,\"row\":4}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now/y",
+      "timeFrom": "now/y",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}]}"
       }
     }
   },
@@ -567,6 +605,62 @@
       "version": 1,
       "kibanaSavedObjectMeta": {
         "searchSourceJSON": "{\"index\":\"america\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "ddjj-total-ingresos-neto",
+    "_type": "visualization",
+    "_source": {
+      "title": "ddjj - total ingresos neto",
+      "visState": "{\"title\":\"ddjj - gastos personales\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"total_ingreso_neto_c1234\"}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"apellido_nombre\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"ddjj\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "ddjj-gastos-personales",
+    "_type": "visualization",
+    "_source": {
+      "title": "ddjj - gastos personales",
+      "visState": "{\"title\":\"ddjj - bienes heredados\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"gastos_personales\"}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"apellido_nombre\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"ddjj\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "ddjj-bienes-heredados",
+    "_type": "visualization",
+    "_source": {
+      "title": "ddjj - bienes heredados",
+      "visState": "{\"title\":\"New Visualization\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"bienes_heredados\"}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"apellido_nombre\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"ddjj\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "ddjj-total-bienes",
+    "_type": "visualization",
+    "_source": {
+      "title": "ddjj - total bienes",
+      "visState": "{\"title\":\"ddjj - total ingresos neto\",\"type\":\"pie\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"sum\",\"schema\":\"metric\",\"params\":{\"field\":\"total_bienes_final\"}},{\"id\":\"2\",\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"apellido_nombre\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"ddjj\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
     }
   }
