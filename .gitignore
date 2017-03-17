@@ -1,10 +1,13 @@
 config.yml
 indexer.log
 indexer.log.bak
-.idea
 build
 dist
 *.egg
 *.egg-info
 sandbox.py
 .DS_Store
+*.iml
+.idea/
+__init__.py
+*.pb
