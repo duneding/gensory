@@ -21,7 +21,7 @@ accounts = config.value(['twitter','accounts'])
 
 timestamp_start = str(datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
 start = 'Start: ' + timestamp_start
-print start
+print(start)
 
 if (len(sys.argv)==2):
     api_param = sys.argv[1]
@@ -31,9 +31,9 @@ else:
 api = social.api(api_param)
 
 for account in accounts:
-    print 'Indexing ' + account
+    print('Indexing ' + account)
     user = social.GetUser(api,account)
-    id = user.__getattribute__('_id')
+    id = user.id
     engine.index(INDEX, 'user', id, social.userToJSON(user))
 
     request={"size":1,"sort":[{"id":{"order":"desc"}}], "query": {"match": {
@@ -48,5 +48,5 @@ for account in accounts:
     tweets = social.GetTweets(api, account, since_id)
 
     for tweet in tweets:
-        print 'Tweet>  ' + tweet.text
+        print('Tweet>  ' + tweet.text)
         engine.index(INDEX, 'tweet', tweet.id, social.tweetToJSON(tweet))

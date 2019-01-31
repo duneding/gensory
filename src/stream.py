@@ -3,7 +3,8 @@ import json
 import sys
 import engine
 import config
-from HTMLParser import HTMLParser
+#from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 from monkeylearn import MonkeyLearn
 
 
@@ -16,7 +17,7 @@ if (len(sys.argv)==6):
     lang = sys.argv[3]
     index_es = sys.argv[4]
     type_es = sys.argv[5]
-else:
+else:   
     raise Exception('Error en cantidad de parametros ingresados!!!: api+tag+lang+index+type') 
 
 access_token = config.value(['twitter', api, 'access_token'])
@@ -34,11 +35,14 @@ ml = MonkeyLearn(ml_token)
 ml_module_id = ml_module
 
 class StreamHTMLParser(HTMLParser):
-    def handle_data(self, data):
-        self.data = data
+    def handle_starttag(self, tag, attrs):
+        print("Encountered a start tag:", tag)
 
-    def getData(self):
-        return self.data;
+    def handle_endtag(self, tag):
+        print("Encountered an end tag :", tag)
+
+    def handle_data(self, data):
+        print("Encountered some data  :", data)
 
 parser = StreamHTMLParser()
 
@@ -81,20 +85,20 @@ class StdOutListener(tweepy.StreamListener):
                         "user_location": user_location
                     }        
 
-        print tweet
-        print ''
+        print(tweet)
+        print('')
         engine.index(index_es, type_es, id, tweet_indexed)
         return True
 
     def on_error(self, status):
-        print status
+        print(status)
 
 if __name__ == '__main__':
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
 
-    print "Mostrando todos los tweets para #" + tag +":"
+    print("Mostrando todos los tweets para #" + tag +":")
 
     # There are different kinds of streams: public stream, user stream, multi-user streams
     # In this example follow #programming tag

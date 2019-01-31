@@ -11,3 +11,5 @@ sandbox.py
 .idea/
 __init__.py
 *.pb
+*.csv
+__pycache__
