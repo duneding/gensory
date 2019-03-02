@@ -2,9 +2,9 @@ __author__ = 'root'
 import yaml
 import os
 
-GENSORY_PATH = os.environ.get('GENSORY_CONFIG')
+GENSORY_CONFIG = os.environ.get('GENSORY_CONFIG')
 
-with open(GENSORY_PATH + "/config.yml", 'r') as ymlfile:
+with open(str(GENSORY_CONFIG) + "/config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
 
